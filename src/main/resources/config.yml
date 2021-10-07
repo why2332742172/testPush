@@ -1,0 +1,64 @@
+#TopTransfer--转换部分(对应第一个插件)
+#指令详解
+# /toptransfer open 玩家id  ----OP专用 打开指定玩家的库存
+# /toptransfer me ----普通玩家可用 打开自己的库存
+# /toptransfer work ----普通玩家可用 将手上的物品进行转化
+
+#存储详解
+# 在插件文件夹下的data文件夹 每个玩家会有一个以其uuid为命名的文件夹 里面是其库存 每个物品一个文件 当被拿走时自动删除
+
+#存储GUI的名字
+name: '&b存储界面'
+
+#转换部分的功能配置
+TopTransfer:
+  #插件是否开启?
+  enable: true
+  #转换配置
+  transferConfig:
+    #id 不重复即可
+    test1:
+      #检测的物品材质
+      type: 'IRON_SWORD'
+      #检测的物品Lore
+      lore: '&bLore全匹配才行哦,包括颜色代码'
+      #匹配上之后执行的指令(支持PAPI)
+      commands:
+        - 'mm item give %player_name% a'
+    test2:
+      type: 'DIAMOND_SWORD'
+      lore: '&aLore2'
+      commands:
+        - 'mm item give %player_name% bbbbb'
+
+#TopEcoDown部分配置
+TopEcoDown:
+  #插件是否开启?
+  enable: true
+  #检查哪些Type?
+  typeList:
+    - 'IRON_SWORD'
+    - 'DIAMOND_SWORD'
+  #每个装备最多的附魔配置
+  enLimit:
+    num: 5
+    enable: true
+  #冲突附魔列表
+  conflictList:
+    #id 不重复即可
+    #!!!!!!冲突表里面 原版附魔必须写英文名字！Eco的中文即可
+    test1:
+      - '激光剑'
+      - 'DAMAGE_ALL'
+    test2:
+      - '熔炼'
+      - '智慧之泉'
+  #提示信息配置
+  #1 当存在超等级的锋利等附魔时 提示的信息
+  msg1: '&f[&4&l!&f]&b&l手上/装备/副手的装备存在超等级限制的锋利/亡灵杀手/节肢杀手附魔,已自动分离至存储GUI,请输入/toptransfer me 打开领取!'
+  #2 当存在冲突附魔时 提示的信息 <Conflict>为替换符 自动替换当前冲突组的全部内容
+  msg2: '&f[&4&l!&f]&b&l手上/装备/副手的装备存在冲突附魔!冲突附魔组为:<Conflict>,已自动分离至存储GUI,请输入/toptransfer me 打开领取!'
+  #3 当附魔数量超过限制时 提示的信息
+  msg3: '&f[&4&l!&f]&b&l手上/装备/副手的装备附魔超过了5个!已自动分离至存储GUI,请输入/toptransfer me 打开领取!'
+  #4 当装备存在保护附魔时 提示的信息
+  msg4: '&f[&4&l!&f]&b&l手上/装备/副手的装备存在保护附魔!已自动分离至存储GUI,请输入/toptransfer me 打开领取!'
